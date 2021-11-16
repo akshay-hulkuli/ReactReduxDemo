@@ -3,11 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore} from 'redux';
+import myReducer from './reducers';
+import { Provider } from 'react-redux';
+const myStore = createStore(
+  myReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+const bg = {
+  red: 'red',
+  blue : 'blue',
+  green: 'green'
+}
+
+export const BgContext = React.createContext(bg.green);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={myStore}>
+    <BgContext.Provider value ={bg.green}>
+      <App />
+    </BgContext.Provider>
+  </Provider>,
   document.getElementById('root')
 );
 
